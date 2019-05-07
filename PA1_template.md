@@ -62,6 +62,14 @@ mean_total_steps
 ## [1] 9354.23
 ```
 
+Histogram of total steps
+
+```r
+hist(total_steps_per_day$x,xlab="Total Steps per Day",main="Total Steps per Day")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
 ## What is the average daily activity pattern?
 
 ```r
@@ -69,7 +77,19 @@ mean_steps_per_interval<-with(activity,aggregate(steps,list(interval),mean,na.rm
 with(mean_steps_per_interval,plot(Group.1,x,type = "l",xlab="Interval", ylab="Average Number of Steps"))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+The interval with most number of total steps is
+
+```r
+max_index<-which.max(mean_steps_per_interval$x)
+max_interval<-mean_steps_per_interval[max_index,1]
+max_interval #Interval 835 has the most average number of steps accross all days
+```
+
+```
+## [1] 835
+```
 
 ## Imputing missing values
 The imputing strategy for missing values is to plug in the total mean steps per interval. The code for this is shown below
@@ -109,7 +129,15 @@ head(new_activity_no_NA) #After imputing missing values
 ## 6 37.3826 2012-10-01       25
 ```
 
-Median and mean have the same values as compared to the original scenario wherein they were at diferent values
+Histogram of new data
+
+```r
+hist(new_activity_no_NA$steps,xlab="Total Steps per Day",main="Histogram")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
+Median and mean have the same values as compared to the original scenario wherein they were at different values
 
 ```r
 new_total_steps_per_day<-with(new_activity_no_NA,aggregate(steps,list(date),sum,na.rm=TRUE))
@@ -142,6 +170,6 @@ ggplot(data=activity,aes(x=interval,y=steps))+stat_summary(fun.y=mean,geom="line
 ## Warning: Removed 2304 rows containing non-finite values (stat_summary).
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 There are consistently higher number of steps on average per interval during the weekends unlike during the weekdays wherein the number of steps taken peaks then drops. 
