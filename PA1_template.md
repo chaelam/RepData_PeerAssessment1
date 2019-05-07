@@ -143,4 +143,5 @@ ggplot(data=activity,aes(x=interval,y=steps))+stat_summary(fun.y=mean,geom="line
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
 There are consistently higher number of steps on average per interval during the weekends unlike during the weekdays wherein the number of steps taken peaks then drops. 
